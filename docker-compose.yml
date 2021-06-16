@@ -1,13 +1,13 @@
-version: :3.8
+version: "3.8"
 services:
+  app:
+    container_name: app_host
+    build: ./infra/php
+    volumes:
+      - ./backend:/work
+
   db:
-    image: mysql:5.7
     container_name: mysql_host
-    environment:
-      MYSQL_ROOT_PASSWORD: root
-      MYSQL_DATABASE: sample_database
-      MYSQL_USER: docker
-      MYSQL_PASSWORD: docker
-      TZ: "Asia/Tokyo"
+    build: ./infra/mysql
     ports:
       - 3306:3306
