@@ -1,13 +1,15 @@
 version: "3.8"
 services:
   app:
-    container_name: app_host
+    hostname: app
+    container_name: sample
     build: ./infra/php
     volumes:
       - ./backend:/work
 
   web:
-    container_name: web_host
+    hostname: web
+    container_name: sample_web
     image: nginx:1.20-alpine
     ports:
       - 8080:80
@@ -17,7 +19,13 @@ services:
     working_dir: /work
 
   db:
-    container_name: mysql_host
+    hostname: db
+    container_name: sample_db
     build: ./infra/mysql
     ports:
       - 3306:3306
+    volumes:
+      - db-store:/var/lib/mysql
+
+volumes:
+  db-store:
